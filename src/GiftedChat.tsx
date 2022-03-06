@@ -1,59 +1,57 @@
+import {
+  ActionSheetOptions,
+  ActionSheetProvider,
+} from '@expo/react-native-action-sheet'
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import PropTypes from 'prop-types'
 import React, { RefObject } from 'react'
 import {
   Animated,
-  Platform,
-  StyleSheet,
-  View,
-  StyleProp,
-  ViewStyle,
-  SafeAreaView,
   FlatList,
-  TextStyle,
   KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
 } from 'react-native'
-import {
-  ActionSheetProvider,
-  ActionSheetOptions,
-} from '@expo/react-native-action-sheet'
-import uuid from 'uuid'
 import { getBottomSpace } from 'react-native-iphone-x-helper'
-import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
-
-import * as utils from './utils'
+import uuid from 'uuid'
 import Actions from './Actions'
 import Avatar from './Avatar'
 import Bubble from './Bubble'
-import SystemMessage from './SystemMessage'
-import MessageImage from './MessageImage'
-import MessageText from './MessageText'
 import Composer from './Composer'
+import {
+  DATE_FORMAT,
+  DEFAULT_PLACEHOLDER,
+  MAX_COMPOSER_HEIGHT,
+  MIN_COMPOSER_HEIGHT,
+  TIME_FORMAT,
+} from './Constant'
 import Day from './Day'
+import GiftedAvatar from './GiftedAvatar'
 import InputToolbar from './InputToolbar'
 import LoadEarlier from './LoadEarlier'
 import Message from './Message'
 import MessageContainer from './MessageContainer'
-import Send from './Send'
-import Time from './Time'
-import GiftedAvatar from './GiftedAvatar'
-
-import {
-  MIN_COMPOSER_HEIGHT,
-  MAX_COMPOSER_HEIGHT,
-  DEFAULT_PLACEHOLDER,
-  TIME_FORMAT,
-  DATE_FORMAT,
-} from './Constant'
+import MessageImage from './MessageImage'
+import MessageText from './MessageText'
 import {
   IMessage,
-  User,
-  Reply,
   LeftRightStyle,
-  MessageVideoProps,
   MessageAudioProps,
+  MessageVideoProps,
+  Reply,
+  User,
 } from './Models'
 import QuickReplies from './QuickReplies'
+import Send from './Send'
+import SystemMessage from './SystemMessage'
+import Time from './Time'
+import * as utils from './utils'
 
 dayjs.extend(localizedFormat)
 
@@ -163,6 +161,8 @@ export interface GiftedChatProps<TMessage extends IMessage = IMessage> {
   renderBubble?(props: Bubble<TMessage>['props']): React.ReactNode
   /*Custom system message */
   renderSystemMessage?(props: SystemMessage<TMessage>['props']): React.ReactNode
+  /* Callback when a message bubble is pressed; */
+  onPress?(context?: any, message?: any): void
   /* Callback when a message bubble is long-pressed; default is to show an ActionSheet with "Copy Text" (see example using showActionSheetWithOptions()) */
   onLongPress?(context: any, message: any): void
   /* Reverses display order of messages; default is true */
@@ -261,6 +261,7 @@ class GiftedChat<TMessage extends IMessage = IMessage> extends React.Component<
     renderAvatarOnTop: false,
     renderBubble: null,
     renderSystemMessage: null,
+    onPress: null,
     onLongPress: null,
     renderMessage: null,
     renderMessageText: null,
@@ -915,7 +916,6 @@ const styles = StyleSheet.create({
 })
 
 export * from './Models'
-
 export {
   GiftedChat,
   Actions,

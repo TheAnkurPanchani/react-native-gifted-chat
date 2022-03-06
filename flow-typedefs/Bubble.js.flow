@@ -49,6 +49,7 @@ export type BubbleProps<TMessage: IMessage = IMessage> = $ReadOnly<{|
   containerToPreviousStyle?: LeftRightStyle<ViewStyleProp>,
   usernameStyle?: TextStyleProp,
   quickReplyStyle?: ViewStyleProp,
+  onPress?: (context?: any, message?: any) => void,
   onLongPress?: (context?: any, message?: any) => void,
   onQuickReply?: (Array<Reply>) => void,
   renderMessageImage?: (RenderMessageImageProps<TMessage>) => React.Node,

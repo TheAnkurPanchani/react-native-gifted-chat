@@ -96,6 +96,7 @@ export type GiftedChatProps<TMessage: IMessage = IMessage> = $ReadOnly<{|
   renderAvatar?: ((AvatarProps<TMessage>) => React.Node) | null,
   renderBubble?: (BubbleProps<TMessage>) => React.Node,
   renderSystemMessage?: (SystemMessageProps<TMessage>) => React.Node,
+  onPress?: (context: any, message: any) => void,
   onLongPress?: (context: any, message: any) => void,
   renderMessage?: (MessageProps<TMessage>) => React.Node,
   renderMessageText?: (MessageTextProps<TMessage>) => React.Node,
