@@ -1,27 +1,25 @@
 import PropTypes from 'prop-types'
 import React, { RefObject } from 'react'
-
 import {
   FlatList,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ListViewProps,
   ListRenderItemInfo,
-  NativeSyntheticEvent,
+  ListViewProps,
   NativeScrollEvent,
-  StyleProp,
-  ViewStyle,
+  NativeSyntheticEvent,
   Platform,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from 'react-native'
-
+import Color from './Color'
 import LoadEarlier from './LoadEarlier'
 import Message from './Message'
-import Color from './Color'
-import { User, IMessage, Reply } from './Models'
-import { warning, StylePropType } from './utils'
+import { IMessage, Reply, User } from './Models'
 import TypingIndicator from './TypingIndicator'
+import { StylePropType, warning } from './utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -91,6 +89,7 @@ export interface MessageContainerProps<TMessage extends IMessage> {
 
 interface State {
   showScrollBottom: boolean
+  hasScrolled: boolean
 }
 
 export default class MessageContainer<

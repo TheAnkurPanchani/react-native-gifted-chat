@@ -13,6 +13,9 @@
   The most complete chat UI for React Native & Web
 </p>
 <p align="center">
+No change. Just a release of latest master of <a href="https://github.com/FaridSafi/react-native-gifted-chat" target="_blank">Fork</a> 
+</p>
+<p align="center">
   <a href="https://www.npmjs.com/package/react-native-gifted-chat">
   <img alt="npm downloads" src="https://img.shields.io/npm/dm/react-native-gifted-chat.svg"/></a>
   <a href="https://www.npmjs.com/package/react-native-gifted-chat"><img alt="npm version" src="https://badge.fury.io/js/react-native-gifted-chat.svg"/></a>
