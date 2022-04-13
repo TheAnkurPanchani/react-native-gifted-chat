@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
   StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
   ViewStyle,
 } from 'react-native'
-import { IMessage, Reply } from './Models'
 import Color from './Color'
-import { warning, StylePropType } from './utils'
+import { IMessage, Reply } from './Models'
+import { StylePropType, warning } from './utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -181,30 +181,37 @@ export default class QuickReplies extends Component<
       <View style={styles.container}>
         {currentMessage!.quickReplies!.values.map(
           (reply: Reply, index: number) => {
+            const startWithNewLine = reply.title?.startsWith('\n')
+            const endWithNewLine = reply.title?.endsWith('\n')
+            const newLine = <View style={{ width: 300 }} />
             const selected =
               type === 'checkbox' && replies.find(sameReply(reply))
             return (
-              <TouchableOpacity
-                onPress={this.handlePress(reply)}
-                style={[
-                  styles.quickReply,
-                  quickReplyStyle,
-                  { borderColor: color },
-                  selected && { backgroundColor: color },
-                ]}
-                key={`${reply.value}-${index}`}
-              >
-                <Text
-                  numberOfLines={10}
-                  ellipsizeMode={'tail'}
+              <>
+                {startWithNewLine && newLine}
+                <TouchableOpacity
+                  onPress={this.handlePress(reply)}
                   style={[
-                    styles.quickReplyText,
-                    { color: selected ? Color.white : color },
+                    styles.quickReply,
+                    quickReplyStyle,
+                    { borderColor: color },
+                    selected && { backgroundColor: color },
                   ]}
+                  key={`${reply.value}-${index}`}
                 >
-                  {reply.title}
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    numberOfLines={10}
+                    ellipsizeMode={'tail'}
+                    style={[
+                      styles.quickReplyText,
+                      { color: selected ? Color.white : color },
+                    ]}
+                  >
+                    {reply.title?.replace(/^\n|\n$/g, '')}
+                  </Text>
+                </TouchableOpacity>
+                {endWithNewLine && newLine}
+              </>
             )
           },
         )}
